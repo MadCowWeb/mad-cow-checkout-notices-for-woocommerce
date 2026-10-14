@@ -1,0 +1,125 @@
+/* Mad Cow Checkout Notices for WooCommerce — checkout styles
+ *
+ * Deliberately restrained: the notice should read as part of the theme's
+ * checkout, not as a plugin dropped on top of it. Colours use currentColor
+ * and a neutral tint so the block inherits whatever the theme already sets.
+ */
+
+/* Background, border, corner radius, padding and margin are set per notice in
+   the admin and emitted as an inline style, so they are deliberately absent
+   here. Only layout that every notice needs lives in this file. */
+.mcwccn-notice {
+    box-sizing: border-box;
+}
+
+.mcwccn-notice *,
+.mcwccn-notice *::before,
+.mcwccn-notice *::after {
+    box-sizing: inherit;
+}
+
+/* Heading. Themes style h2 for page titles, so the properties that would
+   otherwise leak in are neutralised here. Size, weight and colour are set per
+   notice in the admin and arrive as an inline style, so they are absent. */
+.mcwccn-notice .mcwccn-heading {
+    margin: 0 0 0.5em;
+    padding: 0;
+    border: 0;
+    line-height: 1.3;
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+.mcwccn-notice .mcwccn-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5em;
+}
+
+.mcwccn-notice .mcwccn-message-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* The message comes from the editor, so it can hold paragraphs and lists.
+   Collapse the outer margins so the box keeps its own padding. */
+.mcwccn-notice .mcwccn-message-text > *:first-child {
+    margin-top: 0;
+}
+
+.mcwccn-notice .mcwccn-message-text > *:last-child {
+    margin-bottom: 0;
+}
+
+.mcwccn-notice .mcwccn-message-text ul,
+.mcwccn-notice .mcwccn-message-text ol {
+    margin-left: 1.25em;
+    padding-left: 0;
+}
+
+.mcwccn-notice .mcwccn-message-text li {
+    margin-bottom: 0.25em;
+}
+
+.mcwccn-notice .mcwccn-icon {
+    flex: 0 0 auto;
+    margin-top: 0.15em;
+}
+
+/* The question label is rendered by the plugin, outside WooCommerce's
+   .form-row, so its size, weight and colour come through as an inline style. */
+.mcwccn-notice .mcwccn-question-label {
+    display: block;
+    margin: 1em 0 0.4em;
+    line-height: 1.3;
+}
+
+.mcwccn-notice .mcwccn-field {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* Radio rows.
+   WooCommerce ships ".woocommerce form .form-row label { display: block }",
+   which drops every option label onto the line below its button. A plain
+   ".mcwccn-notice .mcwccn-radio-label" rule loses that fight on specificity
+   (0,2,0 against 0,2,1), so the selectors below are weighted to win.
+
+   Laying the row out with flex-wrap does the rest: the button sizes to its
+   content and the label takes the remainder of the line, so each pair gets its
+   own row with the label beside the button rather than under it. Both the
+   form-row and the inner wrapper are declared, because WooCommerce only emits
+   .woocommerce-input-wrapper on newer versions. */
+.mcwccn-notice .mcwccn-field-radio,
+.mcwccn-notice .mcwccn-field-radio .woocommerce-input-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+}
+
+.mcwccn-notice .mcwccn-field-radio .woocommerce-input-wrapper {
+    flex: 1 1 100%;
+}
+
+.woocommerce .mcwccn-notice .mcwccn-field-radio input[type="radio"],
+.mcwccn-notice .mcwccn-field-radio input[type="radio"] {
+    flex: 0 0 auto;
+    display: inline-block;
+    width: auto;
+    margin: 0 0.5em 0 0;
+}
+
+.woocommerce .mcwccn-notice .mcwccn-field-radio label.mcwccn-radio-label,
+.mcwccn-notice .mcwccn-field-radio label.mcwccn-radio-label {
+    flex: 1 1 calc(100% - 2em);
+    display: inline-block;
+    width: auto;
+    margin: 0 0 0.3em;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.mcwccn-notice .mcwccn-field-select select {
+    margin-top: 0.2em;
+}

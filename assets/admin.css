@@ -1,0 +1,148 @@
+/* Mad Cow Checkout Notices for WooCommerce — editor styles */
+
+/* Tighter vertical rhythm than core's 20px / 15px, so the taller meta boxes
+   stay readable. Doubled class beats core's .form-table specificity without
+   relying on stylesheet load order.
+
+   NOTE: earlier rules here were written as `.mcwccn-form .form-table td`,
+   which is a descendant selector. The tables carry BOTH classes
+   (<table class="form-table mcwccn-form">), so those never matched and have
+   been removed. Target `.form-table.mcwccn-form` instead. */
+.form-table.mcwccn-form th,
+.form-table.mcwccn-form td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Category checkbox grid */
+.mcwccn-cat-grid {
+    columns: 3 260px;
+    column-gap: 24px;
+    margin-top: 6px;
+    padding: 12px 14px;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 3px;
+    max-height: 360px;
+    overflow-y: auto;
+}
+
+.mcwccn-cat-item {
+    display: block;
+    break-inside: avoid;
+    padding: 4px 0;
+    line-height: 1.4;
+}
+
+.mcwccn-cat-item input {
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+
+/* Question options table.
+
+   The inputs fill their cell, so a column heading only lines up with the input
+   below it when the header cell and the body cell share the same horizontal
+   padding AND the input carries no margin of its own. wp-admin gives text
+   inputs a small horizontal margin, which is what pushed the headings left of
+   the fields. Both are pinned here rather than nudging the heading by an
+   eyeballed number of pixels. */
+.mcwccn-options th,
+.mcwccn-options td {
+    padding-left: 10px;
+    padding-right: 10px;
+    vertical-align: middle;
+}
+
+.mcwccn-options input[type="text"],
+.mcwccn-options input[type="date"] {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+}
+
+/* Collapse anything tied to the question toggle when it is off */
+[data-mcwccn-target].is-hidden {
+    display: none;
+}
+
+/* Classic-checkout warning, shown only while a question is enabled */
+.mcwccn-block-warning {
+    max-width: 46em;
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-left: 4px solid #dba617;
+    background: #fcf9e8;
+}
+
+.mcwccn-block-warning code {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+/* Appearance controls */
+.mcwccn-form .mcwccn-field-label {
+    display: inline-block;
+    margin: 0 16px 6px 0;
+    font-size: 12px;
+    color: #50575e;
+}
+
+.mcwccn-form .mcwccn-field-label input,
+.mcwccn-form .mcwccn-field-label select {
+    display: block;
+    margin-top: 3px;
+}
+
+.mcwccn-form .mcwccn-inline-check {
+    display: inline-block;
+    margin-left: 12px;
+    vertical-align: middle;
+}
+
+.mcwccn-form input[type="color"] {
+    width: 48px;
+    height: 30px;
+    padding: 2px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/* Drag handle on each option row */
+.mcwccn-options .mcwccn-option-handle {
+    width: 34px;
+    padding-left: 6px;
+    padding-right: 4px;
+    text-align: center;
+    cursor: move;
+    color: #a7aaad;
+}
+
+.mcwccn-options .mcwccn-option-handle:hover {
+    color: #2271b1;
+}
+
+.mcwccn-options .mcwccn-option-handle .dashicons {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.mcwccn-option-placeholder {
+    outline: 1px dashed #c3c4c7;
+    background: #f6f7f7;
+}
+
+.mcwccn-option-placeholder td {
+    height: 44px;
+}
+
+/* The dragged row is detached from the table, so it needs its own surface. */
+.mcwccn-options tr.ui-sortable-helper {
+    display: table;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
