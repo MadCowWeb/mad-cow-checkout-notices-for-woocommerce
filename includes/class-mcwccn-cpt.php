@@ -27,13 +27,14 @@ class MCWCCN_CPT {
 
 	/**
 	 * Register the CPT. Menu is set to false so we can place it manually under
-	 * WooCommerce → Checkout Notices via move_menu_under_woocommerce().
+	 * WooCommerce → MCW Checkout Notices via move_menu_under_woocommerce().
 	 */
 	public function register_post_type() {
 		$labels = array(
-			'name'               => __( 'Checkout Notices', 'mad-cow-checkout-notices-for-woocommerce' ),
+			// The list screen's heading. Full plugin name, matching the other Mad Cow plugin screens.
+			'name'               => __( 'Mad Cow Checkout Notices for WooCommerce', 'mad-cow-checkout-notices-for-woocommerce' ),
 			'singular_name'      => __( 'Checkout Notice', 'mad-cow-checkout-notices-for-woocommerce' ),
-			'menu_name'          => __( 'Checkout Notices', 'mad-cow-checkout-notices-for-woocommerce' ),
+			'menu_name'          => __( 'MCW Checkout Notices', 'mad-cow-checkout-notices-for-woocommerce' ),
 			'add_new'            => __( 'Add Notice', 'mad-cow-checkout-notices-for-woocommerce' ),
 			'add_new_item'       => __( 'Add New Checkout Notice', 'mad-cow-checkout-notices-for-woocommerce' ),
 			'edit_item'          => __( 'Edit Checkout Notice', 'mad-cow-checkout-notices-for-woocommerce' ),
@@ -42,7 +43,7 @@ class MCWCCN_CPT {
 			'search_items'       => __( 'Search Checkout Notices', 'mad-cow-checkout-notices-for-woocommerce' ),
 			'not_found'          => __( 'No notices found.', 'mad-cow-checkout-notices-for-woocommerce' ),
 			'not_found_in_trash' => __( 'No notices found in Trash.', 'mad-cow-checkout-notices-for-woocommerce' ),
-			'all_items'          => __( 'Checkout Notices', 'mad-cow-checkout-notices-for-woocommerce' ),
+			'all_items'          => __( 'MCW Checkout Notices', 'mad-cow-checkout-notices-for-woocommerce' ),
 		);
 
 		register_post_type(
@@ -103,8 +104,8 @@ class MCWCCN_CPT {
 	public function move_menu_under_woocommerce() {
 		add_submenu_page(
 			'woocommerce',
-			__( 'Checkout Notices', 'mad-cow-checkout-notices-for-woocommerce' ),
-			__( 'Checkout Notices', 'mad-cow-checkout-notices-for-woocommerce' ),
+			__( 'Mad Cow Checkout Notices for WooCommerce', 'mad-cow-checkout-notices-for-woocommerce' ),
+			__( 'MCW Checkout Notices', 'mad-cow-checkout-notices-for-woocommerce' ),
 			'manage_woocommerce',
 			'edit.php?post_type=' . MCWCCN_POST_TYPE
 		);

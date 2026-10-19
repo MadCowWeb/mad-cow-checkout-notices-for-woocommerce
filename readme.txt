@@ -12,7 +12,7 @@ Show targeted notices on the WooCommerce checkout, with an optional question who
 
 == Description ==
 
-Add as many checkout notices as you need, each one an ordinary entry under WooCommerce → Checkout Notices. A notice can be a simple message — an order cutoff, a closure, a delivery delay — or it can ask the customer a question and store their answer on the order.
+Add as many checkout notices as you need, each one an ordinary entry under WooCommerce → MCW Checkout Notices. A notice can be a simple message — an order cutoff, a closure, a delivery delay — or it can ask the customer a question and store their answer on the order.
 
 Each notice is independent. It has its own message, its own schedule, its own targeting rules, and its own question. Nothing is hardcoded and nothing requires a developer to change.
 
@@ -69,7 +69,7 @@ Rows shown on the admin order screen and in order emails pass through a filter:
 1. Install and activate WooCommerce.
 2. Upload the plugin through Plugins → Add New → Upload Plugin, or install it from the WordPress plugin directory.
 3. Activate it.
-4. Go to WooCommerce → Checkout Notices and add your first notice.
+4. Go to WooCommerce → MCW Checkout Notices and add your first notice.
 
 == Frequently Asked Questions ==
 
