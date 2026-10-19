@@ -404,11 +404,16 @@ class MCWCCN_Editor {
 			if ( ! is_array( $opt ) ) {
 				continue;
 			}
-			$rows[] = array(
+			$row = array(
 				'value' => isset( $opt['value'] ) ? (string) $opt['value'] : '',
 				'label' => isset( $opt['label'] ) ? (string) $opt['label'] : '',
 				'date'  => isset( $opt['date'] ) ? (string) $opt['date'] : '',
 			);
+			// A label that is just the formatted date is automatic: show it blank so it follows the date.
+			if ( '' !== $row['date'] && $row['label'] === mcwccn_format_date_label( $row['date'] ) ) {
+				$row['label'] = '';
+			}
+			$rows[] = $row;
 		}
 		if ( empty( $rows ) ) {
 			$rows[] = array( 'value' => '', 'label' => '', 'date' => '' );
@@ -514,7 +519,7 @@ class MCWCCN_Editor {
 											<span class="dashicons dashicons-menu" aria-hidden="true"></span>
 										</td>
 										<td>
-											<input type="text" name="mcwccn_question_options[<?php echo (int) $i; ?>][label]" value="<?php echo esc_attr( $row['label'] ); ?>" placeholder="<?php esc_attr_e( 'shown to customer', 'mad-cow-checkout-notices-for-woocommerce' ); ?>">
+											<input type="text" name="mcwccn_question_options[<?php echo (int) $i; ?>][label]" value="<?php echo esc_attr( $row['label'] ); ?>" placeholder="<?php esc_attr_e( 'blank = use the date', 'mad-cow-checkout-notices-for-woocommerce' ); ?>">
 										</td>
 										<td>
 											<input type="date" name="mcwccn_question_options[<?php echo (int) $i; ?>][date]" value="<?php echo esc_attr( $row['date'] ); ?>">
@@ -534,7 +539,7 @@ class MCWCCN_Editor {
 						<p class="description">
 							<?php esc_html_e( 'Drag the handle on the left to change the order options appear in at checkout.', 'mad-cow-checkout-notices-for-woocommerce' ); ?>
 							<br><strong><?php esc_html_e( 'Display Label', 'mad-cow-checkout-notices-for-woocommerce' ); ?></strong>:
-							<?php esc_html_e( 'what the customer sees. If left blank AND a date is set, the label is auto-formatted (e.g. "Tuesday, December 16").', 'mad-cow-checkout-notices-for-woocommerce' ); ?>
+							<?php esc_html_e( 'what the customer sees. Leave it blank on a dated option and the date is shown instead (e.g. "Tuesday, December 16"), and it follows the date if you change it. Anything you type here is shown as written, even if the date changes.', 'mad-cow-checkout-notices-for-woocommerce' ); ?>
 							<br><strong><?php esc_html_e( 'Auto-Hide On/After', 'mad-cow-checkout-notices-for-woocommerce' ); ?></strong>:
 							<?php esc_html_e( 'optional date. This option disappears from checkout on and after that date. Leave blank for options that should always be available.', 'mad-cow-checkout-notices-for-woocommerce' ); ?>
 						</p>
@@ -549,7 +554,7 @@ class MCWCCN_Editor {
 							<?php foreach ( $rows as $row ) : ?>
 								<?php
 									$option_value = '' !== $row['date'] ? $row['date'] : $row['label'];
-									$option_text  = '' !== $row['label'] ? $row['label'] : $option_value;
+									$option_text  = '' !== $row['label'] ? $row['label'] : ( '' !== $row['date'] ? mcwccn_format_date_label( $row['date'] ) : $option_value );
 									if ( '' === $option_value ) {
 										continue;
 									}
@@ -564,7 +569,7 @@ class MCWCCN_Editor {
 				<tr>
 					<th scope="row"><label for="mcwccn_question_admin_label"><?php esc_html_e( 'Admin/Email Label', 'mad-cow-checkout-notices-for-woocommerce' ); ?></label></th>
 					<td>
-						<input type="text" id="mcwccn_question_admin_label" name="mcwccn_question_admin_label" value="<?php echo esc_attr( $config['question_admin_label'] ); ?>" class="regular-text" placeholder="e.g. Delivery Date">
+						<input type="text" id="mcwccn_question_admin_label" name="mcwccn_question_admin_label" value="<?php echo esc_attr( $config['question_admin_label'] ); ?>" class="regular-text" placeholder="<?php esc_attr_e( 'e.g. Delivery Date', 'mad-cow-checkout-notices-for-woocommerce' ); ?>">
 						<p class="description"><?php esc_html_e( 'Label used when displaying the saved answer on the admin order edit screen and inside order emails.', 'mad-cow-checkout-notices-for-woocommerce' ); ?></p>
 					</td>
 				</tr>
@@ -759,9 +764,17 @@ class MCWCCN_Editor {
 				 * and emails read the value stored on the order, not this list.
 				 */
 				$value = '' !== $date ? $date : $label;
-				// If label is empty and date is set, auto-format for storage-time preview.
-				if ( '' === $label && '' !== $date ) {
-					$label = mcwccn_format_date_label( $date );
+
+				/*
+				 * A blank label on a dated option is stored blank, and the date is
+				 * formatted when it is displayed. Storing the formatted text here made
+				 * it look typed: the next edit showed it in the label field, so
+				 * changing only the date left checkout showing the old date while the
+				 * order saved the new one. A label that is exactly the formatted date
+				 * is treated the same way.
+				 */
+				if ( '' !== $date && $label === mcwccn_format_date_label( $date ) ) {
+					$label = '';
 				}
 
 				$options[] = array(

@@ -120,15 +120,27 @@
             return max + 1;
         }
 
+        /* New rows are copied from a row the server rendered, captured before any
+           can be removed, so they carry its translated title, placeholder and
+           button text instead of hardcoded English. */
+        var firstRow = tbody.querySelector('tr.mcwccn-option-row');
+        var template = firstRow ? firstRow.cloneNode(true) : null;
+
         addBtn.addEventListener('click', function () {
+            if (!template) {
+                return;
+            }
             var i = nextIndex();
-            var tr = document.createElement('tr');
-            tr.className = 'mcwccn-option-row';
-            tr.innerHTML =
-                '<td class="mcwccn-option-handle" title="Drag to reorder"><span class="dashicons dashicons-menu" aria-hidden="true"></span></td>' +
-                '<td><input type="text" name="mcwccn_question_options[' + i + '][label]" value="" placeholder="shown to customer"></td>' +
-                '<td><input type="date" name="mcwccn_question_options[' + i + '][date]" value=""></td>' +
-                '<td><button type="button" class="button mcwccn-option-remove">Remove</button></td>';
+            var tr = template.cloneNode(true);
+            var fields = tr.querySelectorAll('input[name^="mcwccn_question_options["]');
+            Array.prototype.forEach.call(fields, function (field) {
+                field.value = '';
+                field.removeAttribute('value');
+                field.name = field.name.replace(
+                    /mcwccn_question_options\[\d+\]/,
+                    'mcwccn_question_options[' + i + ']'
+                );
+            });
             tbody.appendChild(tr);
         });
 

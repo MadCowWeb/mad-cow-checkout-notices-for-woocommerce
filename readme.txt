@@ -32,7 +32,7 @@ Turn the question on and the notice renders a dropdown or a set of radio buttons
 
 Each option has two parts:
 
-* **Display Label** — what the customer sees. Leave it blank on a dated option and it is formatted automatically, for example "Tuesday, December 16".
+* **Display Label** — what the customer sees. Leave it blank on a dated option and the date is shown, formatted, for example "Tuesday, December 16". A blank label follows the date if you change it; a label you type is shown as written.
 * **Auto-Hide On/After** — an optional date. That option disappears from checkout on and after that date. Leave it blank for options that should always be available. When every option has a date and all of them have passed, the whole notice hides itself.
 
 Drag the handle beside a row to change the order options appear in at checkout.
