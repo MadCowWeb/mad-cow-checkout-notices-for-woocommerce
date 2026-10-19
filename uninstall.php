@@ -23,7 +23,6 @@ do {
 			'post_status'            => $mcwccn_statuses,
 			'numberposts'            => 100,
 			'fields'                 => 'ids',
-			'suppress_filters'       => true,
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false,

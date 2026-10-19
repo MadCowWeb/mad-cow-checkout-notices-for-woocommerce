@@ -589,9 +589,9 @@ class MCWCCN_Frontend {
 
 			$field_key = $this->field_key( $config );
 
+			// sanitize_text_field() returns '' for an array, so a tampered non-scalar value fails validation below.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- WooCommerce verifies the checkout nonce before this hook fires; see method docblock.
-			$raw = isset( $_POST[ $field_key ] ) ? wp_unslash( $_POST[ $field_key ] ) : '';
-			$value = sanitize_text_field( is_scalar( $raw ) ? (string) $raw : '' );
+			$value = isset( $_POST[ $field_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $field_key ] ) ) : '';
 
 			if ( '' !== $value && in_array( $value, array_map( 'strval', array_keys( $options ) ), true ) ) {
 				continue;
