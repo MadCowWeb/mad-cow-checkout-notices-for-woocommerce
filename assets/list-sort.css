@@ -1,0 +1,48 @@
+/* Mad Cow Checkout Notices for WooCommerce — list-table drag handle */
+
+.column-mcwccn_menu_order {
+    width: 90px;
+}
+
+.mcwccn-drag-handle {
+    display: inline-block;
+    margin: 0 4px 0 0;
+    padding: 2px;
+    background: none;
+    border: 0;
+    border-radius: 3px;
+    color: #8c8f94;
+    cursor: grab;
+    vertical-align: middle;
+    /* Lets touch drags reach pointer events instead of scrolling the page. */
+    touch-action: none;
+}
+
+.mcwccn-drag-handle:hover,
+.mcwccn-drag-handle:focus {
+    color: #2271b1;
+}
+
+.mcwccn-drag-handle:focus {
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 2px #2271b1;
+}
+
+.mcwccn-dragging {
+    background: #f0f6fc;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.mcwccn-dragging .mcwccn-drag-handle {
+    cursor: grabbing;
+}
+
+body.mcwccn-is-dragging {
+    cursor: grabbing;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#the-list.mcwccn-saving {
+    opacity: 0.7;
+}

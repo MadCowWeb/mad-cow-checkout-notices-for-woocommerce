@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Mad Cow Checkout Notices for WooCommerce
  * Description:       Admin-managed WooCommerce checkout banners with optional cart-based targeting and an optional question (radio or dropdown) that saves the customer's answer to the order.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Mad Cow Web
  * Author URI:        https://madcowweb.com/
  * License:           GPL-2.0-or-later
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MCWCCN_VERSION', '1.0.0' );
+define( 'MCWCCN_VERSION', '1.1.0' );
 define( 'MCWCCN_FILE', __FILE__ );
 define( 'MCWCCN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MCWCCN_URL', plugin_dir_url( __FILE__ ) );
@@ -66,6 +66,13 @@ function mcwccn_bootstrap() {
 	new MCWCCN_Editor();
 	new MCWCCN_Frontend();
 	new MCWCCN_Order_Display();
+
+	// Drag-to-reorder on the admin list screen. admin-ajax.php requests report
+	// is_admin() as true, so this covers the save handler as well.
+	if ( is_admin() ) {
+		require_once MCWCCN_DIR . 'includes/class-mcwccn-list-sort.php';
+		new MCWCCN_List_Sort();
+	}
 }
 
 /**

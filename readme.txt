@@ -4,7 +4,7 @@ Tags: woocommerce, checkout, notice, checkout field, order meta
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,10 @@ Show targeted notices on the WooCommerce checkout, with an optional question who
 Add as many checkout notices as you need, each one an ordinary entry under WooCommerce → MCW Checkout Notices. A notice can be a simple message — an order cutoff, a closure, a delivery delay — or it can ask the customer a question and store their answer on the order.
 
 Each notice is independent. It has its own message, its own schedule, its own targeting rules, and its own question. Nothing is hardcoded and nothing requires a developer to change.
+
+**Ordering**
+
+Notices appear at checkout in the order they are listed. On the notices list, drag the handle in the Order column to rearrange them, or focus the handle and use the up and down arrow keys. The order saves as soon as you drop a row.
 
 **Targeting**
 
@@ -87,6 +91,10 @@ On the order, in its own meta field. They show on the order edit screen and insi
 
 It stops rendering. Individual options disappear on and after their own date, and once every dated option has passed the whole notice hides itself. Nothing needs to be switched off by hand.
 
+= How do I change the order notices appear in? =
+
+Go to WooCommerce → MCW Checkout Notices and drag the handle in the Order column. Handles are shown while the list is sorted by Order, which is how it opens by default. If you have sorted by another column, click the Order column heading to get the handles back. You can still type a number into the Order field under Page Attributes on a notice's edit screen.
+
 = Does the Enabled checkbox do the same thing as Publish? =
 
 No, and that is deliberate. Publish controls whether the notice exists; Enabled controls whether it shows at checkout. A published notice with Enabled switched off stays hidden, which lets you keep a seasonal notice fully configured between seasons.
@@ -104,6 +112,10 @@ No. Uninstalling removes the notices and their settings. Answers already stored 
 5. The customer's order email, showing the saved answer alongside the order summary.
 
 == Changelog ==
+
+= 1.1.0 =
+* New: drag-and-drop ordering of notices on the list screen, with keyboard support.
+* The notices list now opens in checkout order instead of newest first.
 
 = 1.0.0 =
 * Initial release.
